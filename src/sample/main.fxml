@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="101.0" prefWidth="771.0" text="PHẦN MỀM QUẢN LÍ" textAlignment="CENTER">
+            <font>
+                <Font size="48.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutY="79.0" prefHeight="101.0" prefWidth="771.0" text="CỬA HÀNG ĐIỆN TỬ" textAlignment="CENTER">
+            <font>
+                <Font size="48.0" />
+            </font>
+        </Label>
+        <Label layoutX="6.0" layoutY="401.0" prefHeight="17.0" prefWidth="28.0" text="v1.0" />
+        <Label layoutX="55.0" layoutY="401.0" prefHeight="17.0" prefWidth="218.0" text="Mai Phước Vinh          MSSV: B1805835" />
+        <Button fx:id="start_btn" layoutX="276.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="101.0" prefWidth="218.0" text="START">
+           <font>
+               <Font size="24.0" />
+           </font>
+        </Button>
+   </children>
+</AnchorPane>

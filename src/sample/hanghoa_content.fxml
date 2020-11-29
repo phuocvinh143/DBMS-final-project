@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+        <children>
+            <ToolBar orientation="VERTICAL" prefHeight="706.0" prefWidth="191.0" BorderPane.alignment="CENTER">
+                <Button fx:id="hoadon_btn" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Hóa đơn">
+                    <font>
+                        <Font size="18.0" />
+                    </font></Button>
+                <Button fx:id="khachhang_btn" layoutY="82.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Khách hàng">
+                    <font>
+                        <Font size="18.0" />
+                    </font></Button>
+                <Button fx:id="hanghoa_btn" layoutY="164.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Hàng hóa">
+                    <font>
+                        <Font size="18.0" />
+                    </font></Button>
+            </ToolBar>
+            <Button fx:id="timkiem_dshd_btn" layoutX="414.0" layoutY="16.0" mnemonicParsing="false" onAction="#load_hanghoa" prefHeight="25.0" prefWidth="135.0" text="Tìm kiếm hàng hóa" />
+            <TextField fx:id="timkiem_dshh" layoutX="201.0" layoutY="16.0" onKeyTyped="#timkiem_dshh_typing" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên sản phẩm" />
+            <Label alignment="CENTER" layoutX="394.0" layoutY="58.0" prefHeight="36.0" prefWidth="343.0" text="Kho hàng" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+            <TableView fx:id="hanghoa_dshh_table" layoutX="201.0" layoutY="112.0" onMouseClicked="#load_productName_by_clicked_row" prefHeight="566.0" prefWidth="729.0">
+                <columns>
+                    <TableColumn fx:id="stt_dshh_column" prefWidth="40.0" style="-fx-alignment: CENTER;" text="STT" />
+                    <TableColumn fx:id="id_dshh_column" prefWidth="63.0" style="-fx-alignment: CENTER;" text="Mã HH" />
+                    <TableColumn fx:id="tenhang_dshh_column" prefWidth="380.0000305175781" text="Tên mặt hàng" />
+                    <TableColumn fx:id="soluong_dshh_column" prefWidth="62.0" style="-fx-alignment: CENTER;" text="Số lượng" />
+                    <TableColumn fx:id="dongia_dshh_column" prefWidth="132.0" style="-fx-alignment: CENTER-RIGHT;" text="Đơn giá (VND)" />
+                    <TableColumn fx:id="sale_dshh_column" prefWidth="51.0" style="-fx-alignment: CENTER;" text="Sale" />
+                </columns>
+            </TableView>
+            <Label alignment="CENTER" layoutX="977.0" layoutY="102.0" prefHeight="36.0" prefWidth="268.0" text="Thêm hàng hóa" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+            <Label layoutX="943.0" layoutY="170.0" prefHeight="36.0" prefWidth="113.0" text="Tên mặt hàng:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+            <Label layoutX="943.0" layoutY="217.0" prefHeight="36.0" prefWidth="113.0" text="Số lượng nhập:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+            <Button layoutX="1055.0" layoutY="359.0" mnemonicParsing="false" onAction="#themhanghoa_btn_clicked" prefHeight="44.0" prefWidth="206.0" text="THÊM">
+            </Button>
+            <Separator layoutX="934.0" orientation="VERTICAL" prefHeight="706.0" prefWidth="7.0" />
+            <TextField fx:id="tenhang_text" layoutX="1056.0" layoutY="169.0" prefHeight="36.0" prefWidth="206.0" promptText="Nhập tên mặt hàng" />
+            <TextField fx:id="soluong_text" layoutX="1056.0" layoutY="217.0" prefHeight="36.0" prefWidth="56.0" promptText="Nhập số lượng" text="1" />
+            <TextField fx:id="dongia_text" layoutX="1055.0" layoutY="260.0" prefHeight="36.0" prefWidth="206.0" promptText="Nhập đơn giá" />
+            <Label layoutX="943.0" layoutY="260.0" prefHeight="36.0" prefWidth="113.0" text="Giá bán VND:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+            <TextField fx:id="sale_text" layoutX="1054.0" layoutY="304.0" prefHeight="36.0" prefWidth="206.0" promptText="Nhập lượng giảm giá (0 - 1)" />
+            <Label layoutX="941.0" layoutY="305.0" prefHeight="36.0" prefWidth="113.0" text="\% sale:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="978.0" layoutY="436.0" prefHeight="36.0" prefWidth="268.0" text="Cập nhật giá bán" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="tenmathang" editable="true" layoutX="1054.0" layoutY="499.0" prefHeight="25.0" prefWidth="206.0" />
+      <Label layoutX="943.0" layoutY="499.0" prefHeight="25.0" prefWidth="101.0" text="Tên mặt hàng:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="1056.0" layoutY="582.0" mnemonicParsing="false" onAction="#capnhat_btn_clicked" prefHeight="44.0" prefWidth="123.0" text="Cập nhật">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Separator layoutX="937.0" layoutY="425.0" prefHeight="17.0" prefWidth="343.0" />
+      <Label layoutX="943.0" layoutY="536.0" prefHeight="36.0" prefWidth="113.0" text="Giá bán VND:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="new_price" layoutX="1055.0" layoutY="536.0" prefHeight="36.0" prefWidth="206.0" promptText="Nhập giá mới" />
+        </children>
+</AnchorPane>

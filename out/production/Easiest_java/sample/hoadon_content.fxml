@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <ToolBar orientation="VERTICAL" prefHeight="706.0" prefWidth="191.0" BorderPane.alignment="CENTER">
+            <Button fx:id="hoadon_btn" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Hóa đơn">
+                <font>
+                    <Font size="18.0" />
+                </font></Button>
+            <Button fx:id="khachhang_btn" layoutY="82.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Khách hàng">
+                <font>
+                    <Font size="18.0" />
+                </font></Button>
+            <Button fx:id="hanghoa_btn" layoutY="164.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Hàng hóa">
+                <font>
+                    <Font size="18.0" />
+                </font></Button>
+        </ToolBar>
+        <Button layoutX="417.0" layoutY="16.0" mnemonicParsing="false" onAction="#load_hoadon" prefHeight="25.0" prefWidth="121.0" text="Tìm kiếm hóa đơn" />
+        <TextField fx:id="timkiem_dshd" layoutX="204.0" layoutY="16.0" onAction="#timkiem_dshd_typing" onKeyTyped="#timkiem_dshd_typing" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên Khách hàng" />
+        <Label alignment="CENTER" layoutX="453.0" layoutY="53.0" prefHeight="36.0" prefWidth="170.0" text="Danh sách hóa đơn" wrapText="true">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TableView fx:id="giohang_dshd_table" layoutX="204.0" layoutY="418.0" prefHeight="219.0" prefWidth="729.0">
+            <columns>
+                <TableColumn fx:id="stt_dshd_column_1" prefWidth="37.0" style="-fx-alignment: CENTER;" text="STT" />
+                <TableColumn fx:id="tensanpham_dshd_column" prefWidth="350.0" text="Tên sản phẩm" />
+                <TableColumn fx:id="soluong_dshd_column" minWidth="0.0" prefWidth="67.0" style="-fx-alignment: CENTER;" text="Số lượng" />
+                <TableColumn fx:id="dongia_dshd_column" prefWidth="145.0" style="-fx-alignment: CENTER-RIGHT;" text="Đơn giá (VND)" />
+                <TableColumn fx:id="thanhtien_dshd_column" prefWidth="128.0" style="-fx-alignment: CENTER-RIGHT;" text="Thành tiền (VND)" />
+            </columns>
+        </TableView>
+        <Label alignment="CENTER" layoutX="424.0" layoutY="375.0" prefHeight="36.0" prefWidth="229.0" text="Giỏ hàng hóa đơn ID:" wrapText="true">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TableView fx:id="hoadon_dshd_table" layoutX="204.0" layoutY="96.0" onMouseClicked="#load_cart_by_clicked_row" prefHeight="268.0" prefWidth="729.0">
+            <columns>
+                <TableColumn fx:id="stt_dshd_column" prefWidth="40.0" style="-fx-alignment: CENTER;" text="STT" />
+                <TableColumn fx:id="id_dshd_column" prefWidth="58.0" style="-fx-alignment: CENTER;" text="Mã HĐ" />
+                <TableColumn fx:id="khachhang_dshd_column" prefWidth="219.0" text="Khách hàng" />
+                <TableColumn fx:id="ngaylap_dshd_column" prefWidth="109.0" style="-fx-alignment: CENTER;" text="Ngày lập HĐ" />
+                <TableColumn fx:id="tongtien_column" prefWidth="168.0" style="-fx-alignment: CENTER-RIGHT;" text="Tổng tiền (VND)" />
+                <TableColumn fx:id="ghichu_column" prefWidth="134.0" style="-fx-alignment: CENTER;" text="Ghi chú" />
+            </columns>
+        </TableView>
+        <Label alignment="CENTER" layoutX="973.0" layoutY="102.0" prefHeight="36.0" prefWidth="255.0" text="Thêm hóa đơn" wrapText="true">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="945.0" layoutY="151.0" prefHeight="36.0" prefWidth="113.0" text="Tên khách hàng:" />
+        <Label alignment="CENTER" layoutX="973.0" layoutY="446.0" prefHeight="36.0" prefWidth="255.0" text="Thêm hàng hóa" wrapText="true">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="tenkhachhang" editable="true" layoutX="1058.0" layoutY="156.0" prefHeight="25.0" prefWidth="181.0" />
+        <Label layoutX="945.0" layoutY="492.0" prefHeight="36.0" prefWidth="113.0" text="Tên mặt hàng:" />
+        <Label layoutX="945.0" layoutY="528.0" prefHeight="36.0" prefWidth="113.0" text="Mã hàng:" />
+        <Label layoutX="945.0" layoutY="566.0" prefHeight="36.0" prefWidth="113.0" text="Số lượng:" />
+        <ComboBox fx:id="them_ten_mat_hang" editable="true" layoutX="1047.0" layoutY="498.0" onAction="#load_mahang" prefHeight="25.0" prefWidth="181.0" />
+        <TextField fx:id="mahang_text" layoutX="1046.0" layoutY="534.0" prefHeight="25.0" prefWidth="181.0" promptText="Nhập mã hàng" />
+        <TextField layoutX="1046.0" layoutY="572.0" prefHeight="25.0" prefWidth="46.0" text="1" />
+        <Button fx:id="themhoadon_btn" layoutX="945.0" layoutY="206.0" mnemonicParsing="false" onAction="#themhoadon_btn_clicked" prefHeight="44.0" prefWidth="295.0" text="Thêm hóa đơn" />
+        <Button fx:id="tinhtien_btn" layoutX="945.0" layoutY="376.0" mnemonicParsing="false" onAction="#tinhtien_btn_clicked" prefHeight="44.0" prefWidth="184.0" text=" Tính tiền và xuất hóa đơn" />
+        <Button fx:id="them_vao_gio_btn" layoutX="945.0" layoutY="611.0" mnemonicParsing="false" onAction="#themvaogiohang_btn_clicked" prefHeight="44.0" prefWidth="158.0" text="Thêm vào giỏ" />
+        <Button layoutX="1111.0" layoutY="611.0" mnemonicParsing="false" onAction="#xoakhoigiohang_btn_clicked" prefHeight="44.0" prefWidth="139.0" text="Xóa" />
+        <Label alignment="CENTER" layoutX="973.0" layoutY="287.0" prefHeight="36.0" prefWidth="255.0" text="Thanh toán" wrapText="true">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="945.0" layoutY="326.0" prefHeight="36.0" prefWidth="113.0" text="Mã hóa đơn:" />
+        <Label fx:id="giohangid" alignment="CENTER" layoutX="600.0" layoutY="375.0" prefHeight="36.0" prefWidth="53.0" text="ID" wrapText="true">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="thanhtoan_mahoadon" editable="true" layoutX="1058.0" layoutY="332.0" onAction="#load_cart" prefHeight="25.0" prefWidth="181.0" />
+        <Separator layoutX="939.0" layoutY="259.0" prefHeight="34.0" prefWidth="336.0" />
+        <Separator layoutX="937.0" orientation="VERTICAL" prefHeight="706.0" prefWidth="7.0" />
+        <Separator layoutX="939.0" layoutY="439.0" prefHeight="3.0" prefWidth="336.0" />
+        <Button layoutX="1138.0" layoutY="376.0" mnemonicParsing="false" onAction="#xoahoadon_btn_clicked" prefHeight="44.0" prefWidth="108.0" text="Xóa hóa đơn" fx:id="xoahoadon_btn" />
+        <Label layoutX="532.0" layoutY="648.0" prefHeight="44.0" prefWidth="121.0" text="Tổng tiền:">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Label fx:id="tongtien_text" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="660.0" layoutY="648.0" prefHeight="44.0" prefWidth="206.0" text="0">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <Label layoutX="880.0" layoutY="648.0" prefHeight="44.0" prefWidth="53.0" text="VND">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

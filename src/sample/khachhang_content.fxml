@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <ToolBar orientation="VERTICAL" prefHeight="706.0" prefWidth="191.0" BorderPane.alignment="CENTER">
+            <Button fx:id="hoadon_btn" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Hóa đơn">
+                <font>
+                    <Font size="18.0" />
+                </font></Button>
+            <Button fx:id="khachhang_btn" layoutY="82.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Khách hàng">
+                <font>
+                    <Font size="18.0" />
+                </font></Button>
+            <Button fx:id="hanghoa_btn" layoutY="164.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Hàng hóa">
+                <font>
+                    <Font size="18.0" />
+                </font></Button>
+        </ToolBar>
+        <Button layoutX="414.0" layoutY="16.0" mnemonicParsing="false" onAction="#load_khachhang" prefHeight="25.0" prefWidth="135.0" text="Tìm kiếm khách hàng" />
+        <TextField fx:id="timkiem_dskh" layoutX="201.0" layoutY="16.0" onKeyTyped="#timkiem_dskh_typing" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên Khách hàng" />
+        <Label alignment="CENTER" layoutX="368.0" layoutY="78.0" prefHeight="36.0" prefWidth="343.0" text="Danh sách Khách hàng" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <TableView fx:id="khachhang_dskh_table" layoutX="201.0" layoutY="140.0" prefHeight="562.0" prefWidth="729.0">
+            <columns>
+                <TableColumn id="stt_dshd_column" fx:id="stt_dskh_column" prefWidth="40.0" style="-fx-alignment: CENTER;" text="STT" />
+                <TableColumn id="mahoadon_column" fx:id="id_dskh_column" prefWidth="58.0" style="-fx-alignment: CENTER;" text="Mã KH" />
+                <TableColumn id="khachhang_column" fx:id="hoten_dskh_column" prefWidth="134.00003051757812" text="Họ và tên" />
+                <TableColumn id="ngaylap_column" fx:id="sdt_dskh_column" prefWidth="102.0" style="-fx-alignment: CENTER;" text="SĐT" />
+                <TableColumn id="tongtien_column" fx:id="email_dskh_column" prefWidth="169.0" text="Email" />
+                <TableColumn id="ghichu_column" fx:id="diachi_dskh_column" prefWidth="225.0" text="Địa chỉ" />
+            </columns>
+        </TableView>
+        <Label alignment="CENTER" layoutX="970.0" layoutY="96.0" prefHeight="36.0" prefWidth="255.0" text="Thêm khách hàng" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <Label layoutX="942.0" layoutY="142.0" prefHeight="36.0" prefWidth="113.0" text="Tên khách hàng:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+        <Label layoutX="942.0" layoutY="189.0" prefHeight="36.0" prefWidth="113.0" text="SĐT:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+        <Button fx:id="themkh_btn" layoutX="1055.0" layoutY="385.0" mnemonicParsing="false" onAction="#themkhachhang_btn_clicked" prefHeight="44.0" prefWidth="206.0" text="Thêm khách hàng">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+        <Separator layoutX="934.0" orientation="VERTICAL" prefHeight="706.0" prefWidth="7.0" />
+        <TextField fx:id="hoten_text" layoutX="1055.0" layoutY="148.0" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên Khách hàng" />
+        <TextField fx:id="sdt_text" layoutX="1055.0" layoutY="195.0" prefHeight="25.0" prefWidth="206.0" promptText="Nhập SĐT" />
+        <TextField fx:id="email_text" layoutX="1054.0" layoutY="239.0" prefHeight="25.0" prefWidth="206.0" promptText="Nhập email" />
+        <TextField fx:id="diachi_text" alignment="TOP_LEFT" layoutX="1055.0" layoutY="283.0" prefHeight="69.0" prefWidth="206.0" promptText="Nhập địa chỉ" />
+        <Label layoutX="942.0" layoutY="232.0" prefHeight="36.0" prefWidth="113.0" text="Email:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+        <Label layoutX="942.0" layoutY="283.0" prefHeight="15.0" prefWidth="113.0" text="Địa chỉ:">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+    </children>
+</AnchorPane>
