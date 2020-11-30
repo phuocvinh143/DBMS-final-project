@@ -45,9 +45,15 @@ create table Order_Details(
 );
 
 -- Thêm dữ liệu
+insert into Customers (fullName, phoneNumber, email, address) values ('guest', '0000000000', 'xxx@xxx.com', 'xxx');
 insert into Customers (fullName, phoneNumber, email, address) values ('Mai Phuoc Vinh', '0907890278', 'maiphuocvinh143@gmail.com', 'Long Hòa, Bình Thủy, Cần Thơ');
 insert into Customers (fullName, phoneNumber, email, address) values ('Mai Duc Phat', '0939750469', 'phuocvinh1143@gmail.com', 'Long Hòa, Bình Thủy, Cần Thơ');
-insert into Customers (fullName, phoneNumber, email, address) values ('guest', '0000000000', 'xxx@xxx.com', 'xxx');
+insert into Customers (fullName, phoneNumber, email, address) values ('Ngo Hong Quoc Bao', '0123456789', 'baobao@gmail.com', 'Hưng Phú, Ninh Kiều, Cần Thơ');
+insert into Customers (fullName, phoneNumber, email, address) values ('Huynh Quan Nhat Hao', '0123456788', 'haohao@gmail.com', 'Ô Môn, Cần Thơ');
+insert into Customers (fullName, phoneNumber, email, address) values ('Bui Quoc Trong', '0123456777', 'trongbui@gmail.com', 'Ô MÔN');
+insert into Customers (fullName, phoneNumber, email, address) values ('Duong Dang Khoa', '0123456778', 'khoanon@gmail.com', 'SÓC TRĂNG');
+insert into Customers (fullName, phoneNumber, email, address) values ('Le Chanh Nhut', '0123456779', 'nhutle@gmail.com', 'GIÒNG RIỀNG');
+insert into Customers (fullName, phoneNumber, email, address) values ('Truong Hoang Thuan', '0123456798', 'thuanbui@gmail.com', 'NGÃ 6');
 
 insert into Products (productName, inStock, unitPrice, sale) values ('Camera IP Wifi Ezviz C6N 1080p', 5, 2400000, 0.57);
 insert into Products (productName, inStock, unitPrice, sale) values ('Camera Sony DSC H300 - 20.1 Megapixel, Zoom 35x', 10, 500000, 0.24);
@@ -57,10 +63,17 @@ insert into Products (productName, inStock, unitPrice, sale) values ('Apple Macb
 insert into Products (productName, inStock, unitPrice, sale) values ('Apple Macbook Pro 2020 - 13 Inchs (i5-8th/ 8GB/ 256GB)', 5, 39990000, 0.17);
 insert into Products (productName, inStock, unitPrice, sale) values ('Dien Thoai iPhone 11 64GB', 20, 21990000, 0.23);
 insert into Products (productName, inStock, unitPrice, sale) values ('Dien Thoai iPhone 11 Pro Max 64GB', 25, 29500000, 0.2);
+insert into Products (productName, inStock, unitPrice, sale) values ('Dien Thoai iPhone 12 Pro Max 512GB', 25, 40000000, 0.2);
+insert into Products (productName, inStock, unitPrice, sale) values ('Dien Thoai iPhone 12 Mini 256GB', 10, 20000000, 0.2);
+insert into Products (productName, inStock, unitPrice, sale) values ('iPad Pro 256GB', 10, 30000000, 0.3);
+insert into Products (productName, inStock, unitPrice, sale) values ('Samsung Galaxy Note 10', 10, 20000000, 0.1);
+insert into Products (productName, inStock, unitPrice, sale) values ('Chuot Logitech G502', 10, 1000000, 0.1);
+insert into Products (productName, inStock, unitPrice, sale) values ('Chuot Logitech G Pro Wireless', 50, 3000000, 0.2);
+insert into Products (productName, inStock, unitPrice, sale) values ('Laptop Gaming ...', 10, 30000000, 0.1);
 
 insert into Orders (customerID, checkout) values (1, 'Đã thanh toán');
 insert into Orders (customerID, checkout) values (2, 'Chưa thanh toán');
-insert into Orders (customerID, checkout) values (1, 'Đã thanh toán');
+insert into Orders (customerID, checkout) values (3, 'Đã thanh toán');
 
 insert into Order_Details (productID, orderID, sale) values (1, 1, 0.57);
 insert into Order_Details (productID, orderID, sale) values (2, 1, 0.24);
@@ -214,4 +227,21 @@ DELIMITER //
 create procedure p_getIDbyProductName (p_productName varchar(200))
 begin
 	select ID from Products where productName=p_productName;
+end//
+
+-- Trigger ghi nhớ ngày thanh toán khi thay đổi trạng thái của đơn hàng
+DELIMITER //
+create table order_log (
+	id int not null primary key,
+	orderID int,
+    _date datetime not null default now()
+)//
+
+create trigger after_order_change
+after update on Orders 
+for each row
+begin
+	insert into order_log 
+    set
+		orderID = old.id;
 end//
