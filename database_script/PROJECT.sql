@@ -70,6 +70,12 @@ insert into Products (productName, inStock, unitPrice, sale) values ('Samsung Ga
 insert into Products (productName, inStock, unitPrice, sale) values ('Chuot Logitech G502', 10, 1000000, 0.1);
 insert into Products (productName, inStock, unitPrice, sale) values ('Chuot Logitech G Pro Wireless', 50, 3000000, 0.2);
 insert into Products (productName, inStock, unitPrice, sale) values ('Laptop Gaming ...', 10, 30000000, 0.1);
+insert into Products (productName, inStock, unitPrice, sale) values ('Apple iMac 2019 MRR12 27 inch 5K', 10, 69990000, 0.28);
+insert into Products (productName, inStock, unitPrice, sale) values ('iPad Mini 5 Wi-Fi 64GB', 6, 8990000, 0.25);
+insert into Products (productName, inStock, unitPrice, sale) values ('iPad 10.2 Inch WiFi 32GB (Gen 8) New 2020', 10, 10990000, 0.23);
+insert into Products (productName, inStock, unitPrice, sale) values ('iPad Pro 12.9 inch (2020) Wifi', 10, 10990000, 0.23);
+insert into Products (productName, inStock, unitPrice, sale) values ('Loa Vi Tinh Logitech Z906 5.1 1000W', 15, 6820000, 0.13);
+insert into Products (productName, inStock, unitPrice, sale) values ('Gopro Hero 9 Black', 15, 11990000, 0.08);
 
 insert into Orders (customerID, checkout) values (1, 'Đã thanh toán');
 insert into Orders (customerID, checkout) values (2, 'Chưa thanh toán');
@@ -143,11 +149,18 @@ begin
 	delete from Orders where ID = p_orderID;
 end//
 
--- Đánh dấu là đơn hàng đã thanh toán với tham số ID đơn hàng
+-- Đánh dấu là đơn hàng đã thanh toán với tham số ID đơn hàng, trừ số lượng trong kho
 DELIMITER //
 create procedure p_checkOut (p_orderID int)
 begin
 	update Orders set checkout = 'Đã thanh toán' where ID = p_orderID;
+end//
+
+-- Giảm số lượng sản phẩm trong kho khi thanh toán với tham số là id sản phẩm
+DELIMITER //
+create procedure p_decrease_product_instock (p_productID int)
+begin
+	update Products set inStock = inStock - quantity where ID = p_productID;
 end//
 
 -- Thêm vào sản phẩm vào hóa đơn (nếu đã có sản phẩm rồi thì tăng số lượng ngược lại thì thêm sản phẩm vào với số lượng là 1) 
@@ -232,7 +245,7 @@ end//
 -- Trigger ghi nhớ ngày thanh toán khi thay đổi trạng thái của đơn hàng
 DELIMITER //
 create table order_log (
-	id int not null primary key,
+	id int not null primary key AUTO_INCREMENT,
 	orderID int,
     _date datetime not null default now()
 )//
