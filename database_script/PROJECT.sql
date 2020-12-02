@@ -158,9 +158,9 @@ end//
 
 -- Giảm số lượng sản phẩm trong kho khi thanh toán với tham số là id sản phẩm
 DELIMITER //
-create procedure p_decrease_product_instock (p_productID int)
+create procedure p_decrease_product_instock (p_productName varchar(200), p_quantity int)
 begin
-	update Products set inStock = inStock - quantity where ID = p_productID;
+	update Products set inStock = inStock - p_quantity where productName = p_productName;
 end//
 
 -- Thêm vào sản phẩm vào hóa đơn (nếu đã có sản phẩm rồi thì tăng số lượng ngược lại thì thêm sản phẩm vào với số lượng là 1) 

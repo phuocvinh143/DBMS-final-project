@@ -174,7 +174,7 @@ public class Controller {
         String a = new String();
 
         cStmt = null;
-        ResultSet rs = null;
+        ResultSet rs = null, rs1 = null;
         query = "{call p_listProducts(" + thanhtoan_mahoadon.getValue() + ")}";
         Integer cnt = new Integer(1);
 
@@ -182,6 +182,10 @@ public class Controller {
             cStmt = conn.prepareCall(query);
             rs = cStmt.executeQuery();
             while (rs.next()) {
+                query = "{call p_decrease_product_instock('" + rs.getString("productName") + "'," + rs.getInt("quantity") + ")}";
+                cStmt = conn.prepareCall(query);
+                cStmt.executeQuery();
+
                 String tmp = rs.getString("productName") + " x " + rs.getInt("quantity");
                 String tmp1 = String.format("%,.2f", rs.getFloat("price"));
                 String space = "";
@@ -207,14 +211,14 @@ public class Controller {
         String billz = Header + a + amt;
         PrintReciept.printcard(billz);
 
-        if (Desktop.isDesktopSupported()) {
-            try {
-                File myFile = new File("D:/Study_At_Uni/NLHQTCSDL/Easiest_java/hd/1.pdf");
-                Desktop.getDesktop().open(myFile);
-            } catch (IOException ex) {
-                // no application registered for PDFs
-            }
-        }
+//        if (Desktop.isDesktopSupported()) {
+//            try {
+//                File myFile = new File("D:/Study_At_Uni/NLHQTCSDL/Easiest_java/hd/1.pdf");
+//                Desktop.getDesktop().open(myFile);
+//            } catch (IOException ex) {
+//                // no application registered for PDFs
+//            }
+//        }
 
         load_hoadon();
     }
