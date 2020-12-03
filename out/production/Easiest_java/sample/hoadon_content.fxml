@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1275.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1275.0" xmlns="http://javafx.com/javafx/8.0.201" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <ToolBar orientation="VERTICAL" prefHeight="706.0" prefWidth="191.0" BorderPane.alignment="CENTER">
             <Button fx:id="hoadon_btn" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="81.0" prefWidth="181.0" text="Hóa đơn">
@@ -27,7 +27,7 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <TableView fx:id="giohang_dshd_table" layoutX="204.0" layoutY="418.0" prefHeight="219.0" prefWidth="729.0">
+        <TableView fx:id="giohang_dshd_table" layoutX="204.0" layoutY="418.0" onMouseClicked="#load_tenhang_by_clicked_row" prefHeight="219.0" prefWidth="729.0">
             <columns>
                 <TableColumn fx:id="stt_dshd_column_1" prefWidth="37.0" style="-fx-alignment: CENTER;" text="STT" />
                 <TableColumn fx:id="tensanpham_dshd_column" prefWidth="350.0" text="Tên sản phẩm" />

@@ -125,6 +125,7 @@ public class Controller {
         SortedList<Order> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(hoadon_dshd_table.comparatorProperty());
         hoadon_dshd_table.setItems(sortedData);
+
     }
 
     @FXML
@@ -444,6 +445,12 @@ public class Controller {
     public void load_productName_by_clicked_row() {
         Product _product = hanghoa_dshh_table.getSelectionModel().getSelectedItem();
         tenmathang.setValue(_product.getTenhang());
+    }
+
+    @FXML
+    public void load_tenhang_by_clicked_row() {
+        Cart _cart = giohang_dshd_table.getSelectionModel().getSelectedItem();
+        them_ten_mat_hang.setValue(_cart.getTensanpham());
     }
 
     @FXML
