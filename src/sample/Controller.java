@@ -211,14 +211,14 @@ public class Controller {
         String billz = Header + a + amt;
         PrintReciept.printcard(billz);
 
-//        if (Desktop.isDesktopSupported()) {
-//            try {
-//                File myFile = new File("D:/Study_At_Uni/NLHQTCSDL/Easiest_java/hd/1.pdf");
-//                Desktop.getDesktop().open(myFile);
-//            } catch (IOException ex) {
-//                // no application registered for PDFs
-//            }
-//        }
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File("D:/Study_At_Uni/NLHQTCSDL/Easiest_java/reciepts/1.pdf");
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
 
         load_hoadon();
     }
