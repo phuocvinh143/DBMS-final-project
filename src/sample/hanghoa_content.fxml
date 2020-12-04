@@ -20,8 +20,9 @@
                         <Font size="18.0" />
                     </font></Button>
             </ToolBar>
-            <Button fx:id="timkiem_dshd_btn" layoutX="414.0" layoutY="16.0" mnemonicParsing="false" onAction="#load_hanghoa" prefHeight="25.0" prefWidth="135.0" text="Tìm kiếm hàng hóa" />
-            <TextField fx:id="timkiem_dshh" layoutX="201.0" layoutY="16.0" onKeyTyped="#timkiem_dshh_typing" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên sản phẩm" />
+            <Button layoutX="566.0" layoutY="16.0" mnemonicParsing="false" onAction="#load_hanghoa" prefHeight="25.0" prefWidth="88.0" text="Reload" textFill="#0f42d9" />
+            <Button fx:id="timkiem_dshd_btn" layoutX="414.0" layoutY="16.0" mnemonicParsing="false" onAction="#timkiem_dshh_typing" prefHeight="25.0" prefWidth="135.0" text="Tìm kiếm hàng hóa" />
+            <TextField fx:id="timkiem_dshh" layoutX="201.0" layoutY="16.0" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên sản phẩm" />
             <Label alignment="CENTER" layoutX="394.0" layoutY="58.0" prefHeight="36.0" prefWidth="343.0" text="Kho hàng" wrapText="true">
          <font>
             <Font size="18.0" />

@@ -20,8 +20,8 @@
                     <Font size="18.0" />
                 </font></Button>
         </ToolBar>
-        <Button layoutX="417.0" layoutY="16.0" mnemonicParsing="false" onAction="#load_hoadon" prefHeight="25.0" prefWidth="121.0" text="Tìm kiếm hóa đơn" />
-        <TextField fx:id="timkiem_dshd" layoutX="204.0" layoutY="16.0" onAction="#timkiem_dshd_typing" onKeyTyped="#timkiem_dshd_typing" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên Khách hàng" />
+        <Button layoutX="417.0" layoutY="16.0" mnemonicParsing="false" onAction="#timkiem_dshd_typing" prefHeight="25.0" prefWidth="121.0" text="Tìm kiếm hóa đơn" />
+        <TextField fx:id="timkiem_dshd" layoutX="204.0" layoutY="16.0" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên Khách hàng" />
         <Label alignment="CENTER" layoutX="453.0" layoutY="53.0" prefHeight="36.0" prefWidth="170.0" text="Danh sách hóa đơn" wrapText="true">
             <font>
                 <Font size="14.0" />
@@ -104,5 +104,6 @@
                 <Font size="25.0" />
             </font>
         </Label>
+      <Button layoutX="551.0" layoutY="16.0" mnemonicParsing="false" onAction="#load_hoadon" prefHeight="25.0" prefWidth="88.0" text="Reload" textFill="#0f42d9" />
     </children>
 </AnchorPane>

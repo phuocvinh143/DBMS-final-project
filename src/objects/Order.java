@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Order {
-    private SimpleIntegerProperty ID, stt;
-    private SimpleStringProperty date, hoten, ghichu;
-    private SimpleStringProperty tongtien;
+    public SimpleIntegerProperty ID, stt;
+    public SimpleStringProperty date, hoten, ghichu;
+    public SimpleStringProperty tongtien;
 
     public Order(Integer stt, Integer ID, Date date, String hoten, float tongtien, String ghichu) {
         this.stt = new SimpleIntegerProperty(stt);
@@ -17,7 +17,7 @@ public class Order {
         this.tongtien = new SimpleStringProperty(String.format("%,.2f", tongtien));
         this.ghichu = new SimpleStringProperty(ghichu);
 
-        SimpleDateFormat tmp = new SimpleDateFormat("dd-MM-YYYY");
+        SimpleDateFormat tmp = new SimpleDateFormat("dd-MM-yyyy");
         String _date = tmp.format(date);
         this.date = new SimpleStringProperty(_date);
     }
@@ -33,7 +33,7 @@ public class Order {
     // date
     public String getDate() { return date.get(); }
     public void setDate(Date p_date) {
-        SimpleDateFormat tmp = new SimpleDateFormat("dd-MM-YYYY");
+        SimpleDateFormat tmp = new SimpleDateFormat("dd-MM-yyyy");
         String _date = tmp.format(p_date);
         this.date = new SimpleStringProperty(_date);
     }

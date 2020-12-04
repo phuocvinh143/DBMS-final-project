@@ -20,8 +20,9 @@
                     <Font size="18.0" />
                 </font></Button>
         </ToolBar>
-        <Button layoutX="414.0" layoutY="16.0" mnemonicParsing="false" onAction="#load_khachhang" prefHeight="25.0" prefWidth="135.0" text="Tìm kiếm khách hàng" />
-        <TextField fx:id="timkiem_dskh" layoutX="201.0" layoutY="16.0" onKeyTyped="#timkiem_dskh_typing" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên Khách hàng" />
+        <Button layoutX="566.0" layoutY="16.0" mnemonicParsing="false" onAction="#load_khachhang" prefHeight="25.0" prefWidth="88.0" text="Reload" textFill="#0f42d9" />
+        <Button layoutX="414.0" layoutY="16.0" mnemonicParsing="false" onAction="#timkiem_dskh_typing" prefHeight="25.0" prefWidth="135.0" text="Tìm kiếm khách hàng" />
+        <TextField fx:id="timkiem_dskh" layoutX="201.0" layoutY="16.0" prefHeight="25.0" prefWidth="206.0" promptText="Nhập tên Khách hàng" />
         <Label alignment="CENTER" layoutX="368.0" layoutY="78.0" prefHeight="36.0" prefWidth="343.0" text="Danh sách Khách hàng" wrapText="true">
          <font>
             <Font size="18.0" />

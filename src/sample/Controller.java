@@ -21,7 +21,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 
@@ -113,8 +115,23 @@ public class Controller {
         stage.show();
     }
 
+    int string2float(String s) {
+        String tmp = s.split("\\.")[0];
+        int ans = 0;
+        for (int i = 0; i < tmp.length(); ++i) {
+            int dv;
+            if (tmp.charAt(i) != ',') {
+                dv = Integer.parseInt(tmp.charAt(i) + "");
+                ans = ans * 10 + dv;
+            }
+        }
+
+        return ans;
+    }
+
     @FXML
-    public void timkiem_dshd_typing() {
+    public void timkiem_dshd_typing() throws ParseException {
+        hoadon_dshd_table.getItems().clear();
         FilteredList<Order> filteredData = new FilteredList<>(dataList, b -> true);
 
         filteredData.setPredicate(order -> {
@@ -124,13 +141,22 @@ public class Controller {
 
         SortedList<Order> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(hoadon_dshd_table.comparatorProperty());
-        hoadon_dshd_table.setItems(sortedData);
-
+        for (Order sortedDatum : sortedData) {
+            Date tmp = new SimpleDateFormat("dd-MM-yyyy").parse(sortedDatum.date.get());
+            Order _order = new Order(
+                    sortedDatum.stt.get(),
+                    sortedDatum.ID.get(),
+                    tmp,
+                    sortedDatum.getHoten(),
+                    (float) string2float(sortedDatum.getTongtien()),
+                    sortedDatum.getGhichu());
+            hoadon_dshd_table.getItems().add(_order);
+        }
     }
 
     @FXML
     public void themhoadon_btn_clicked() {
-        CallableStatement cStmt = null;
+        CallableStatement cStmt;
         String query = "{call p_createOrder('" + tenkhachhang.getValue() + "')}";
         try {
             cStmt = conn.prepareCall(query);
@@ -143,7 +169,7 @@ public class Controller {
 
     @FXML
     public void tinhtien_btn_clicked() {
-        CallableStatement cStmt = null;
+        CallableStatement cStmt;
 
         if (check_don_hang.equals("Đã thanh toán")) {
             _alert("Đơn hàng đã thanh toán rồi!");
@@ -160,24 +186,22 @@ public class Controller {
 
         // In hoa don
         GregorianCalendar gg = new GregorianCalendar();
-        SimpleDateFormat dd = new SimpleDateFormat("dd/MM/YYYY");
+        SimpleDateFormat dd = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat ddd = new SimpleDateFormat("HH:mm");
 
         String Header =
                           "*************************************  CTY TNHH 1 thành viên  *************************************;" +
                           "*************************************       TÍNH TIỀN         *************************************;"
-                        + "Ngày: "+dd.format(gg.getTime()) + "Thời gian: " + ddd.format(gg.getTime()) + "\n\n\n;"
+                        + "Ngày: "+dd.format(gg.getTime()) + ";Thời gian: " + ddd.format(gg.getTime()) + "\n\n\n;"
                         + "                                             HÓA ĐƠN                                               \n;"
                         + "---------------------------------------------------------------------------------------------------\n;"
                         + "Tên x Số lượng                                                                               Đơn giá\n;"
                         + "----------------------------------------------------------------------------------------------------\n;";
 
-        String a = new String();
+        StringBuilder a = new StringBuilder();
 
-        cStmt = null;
-        ResultSet rs = null, rs1 = null;
+        ResultSet rs;
         query = "{call p_listProducts(" + thanhtoan_mahoadon.getValue() + ")}";
-        Integer cnt = new Integer(1);
 
         try {
             cStmt = conn.prepareCall(query);
@@ -189,9 +213,9 @@ public class Controller {
 
                 String tmp = rs.getString("productName") + " x " + rs.getInt("quantity");
                 String tmp1 = String.format("%,.2f", rs.getFloat("price"));
-                String space = "";
-                for (int i = 0; i < 10 - tmp1.length() + (90 - tmp.length()); ++i) space = space + " ";
-                a = a + tmp + space + tmp1 + "\n;";
+                StringBuilder space = new StringBuilder();
+                for (int i = 0; i < 10 - tmp1.length() + (90 - tmp.length()); ++i) space.append(" ");
+                a.append(tmp).append(space).append(tmp1).append("\n;");
             }
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
@@ -208,13 +232,12 @@ public class Controller {
                         + "                                            Thank You                                               \n;"
                         + "----------------------------------------------------------------------------------------------------\n;";
 
-        PrintReciept p = new PrintReciept();
         String billz = Header + a + amt;
         PrintReciept.printcard(billz);
 
         if (Desktop.isDesktopSupported()) {
             try {
-                File myFile = new File("D:/Study_At_Uni/NLHQTCSDL/Easiest_java/reciepts/1.pdf");
+                File myFile = new File("D:/Study_At_Uni/NLHQTCSDL/Easiest_java/reciepts/5.pdf");
                 Desktop.getDesktop().open(myFile);
             } catch (IOException ex) {
                 // no application registered for PDFs
@@ -226,7 +249,7 @@ public class Controller {
 
     @FXML
     public void xoahoadon_btn_clicked() {
-        CallableStatement cStmt = null;
+        CallableStatement cStmt;
         String query = "{call p_deleteOrder(" + thanhtoan_mahoadon.getValue() + ")}";
         try {
             cStmt = conn.prepareCall(query);
@@ -239,8 +262,7 @@ public class Controller {
 
     @FXML
     public void themvaogiohang_btn_clicked() {
-        CallableStatement cStmt = null;
-        ResultSet rs = null;
+        CallableStatement cStmt;
         String query = "{call p_add2Cart(" + thanhtoan_mahoadon.getValue() + "," + mahang_text.getText() + ")}";
 
         if (check_don_hang.equals("Đã thanh toán")) {
@@ -260,8 +282,7 @@ public class Controller {
 
     @FXML
     public void xoakhoigiohang_btn_clicked() {
-        CallableStatement cStmt = null;
-        ResultSet rs = null;
+        CallableStatement cStmt;
         String query = "{call p_popFromCart(" + thanhtoan_mahoadon.getValue() + "," + mahang_text.getText() + ")}";
         if (check_don_hang.equals("Đã thanh toán")) {
             alertThemHang();
@@ -279,6 +300,7 @@ public class Controller {
 
     @FXML
     public void timkiem_dskh_typing() {
+        khachhang_dskh_table.getItems().clear();
         FilteredList<Customer> filteredData = new FilteredList<>(dataList_dskh, b -> true);
 
         filteredData.setPredicate(customer -> {
@@ -288,13 +310,22 @@ public class Controller {
 
         SortedList<Customer> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(khachhang_dskh_table.comparatorProperty());
-        khachhang_dskh_table.setItems(sortedData);
+
+        for (Customer sortedDatum : sortedData) {
+            Customer _customer = new Customer(
+                    sortedDatum.getStt(),
+                    sortedDatum.getID(),
+                    sortedDatum.getHoten(),
+                    sortedDatum.getSdt(),
+                    sortedDatum.getEmail(),
+                    sortedDatum.getDiachi());
+            khachhang_dskh_table.getItems().add(_customer);
+        }
     }
 
     @FXML
     public void themkhachhang_btn_clicked() {
-        CallableStatement cStmt = null;
-        ResultSet rs = null;
+        CallableStatement cStmt;
         String query = "{call p_createCustomer('" + hoten_text.getText() + "','" + sdt_text.getText() + "','" + email_text.getText() + "','" + diachi_text.getText() + "'" + ")}";
         try {
             cStmt = conn.prepareCall(query);
@@ -307,6 +338,8 @@ public class Controller {
 
     @FXML
     public void timkiem_dshh_typing() {
+        hanghoa_dshh_table.getItems().clear();
+
         FilteredList<Product> filteredData = new FilteredList<>(dataList_dshh, b -> true);
 
         filteredData.setPredicate(product -> {
@@ -316,13 +349,22 @@ public class Controller {
 
         SortedList<Product> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(hanghoa_dshh_table.comparatorProperty());
-        hanghoa_dshh_table.setItems(sortedData);
+
+        for (Product sortedDatum : sortedData) {
+            Product _product = new Product(
+                    sortedDatum.getStt(),
+                    sortedDatum.getID(),
+                    sortedDatum.getTenhang(),
+                    sortedDatum.getSoluong(),
+                    string2float(sortedDatum.getDongia()),
+                    sortedDatum.getSale());
+            hanghoa_dshh_table.getItems().add(_product);
+        }
     }
 
     @FXML
     public void themhanghoa_btn_clicked() {
-        CallableStatement cStmt = null;
-        ResultSet rs = null;
+        CallableStatement cStmt;
         String query = "{call p_addProduct('" + tenhang_text.getText() + "'," + soluong_text.getText() + "," + dongia_text.getText().replaceAll(",", "") + "," + sale_text.getText() + ")}";
         try {
             cStmt = conn.prepareCall(query);
@@ -335,10 +377,9 @@ public class Controller {
 
     @FXML
     public void capnhat_btn_clicked() {
-        CallableStatement cStmt = null;
-        ResultSet rs = null;
+        CallableStatement cStmt;
         Product _product = hanghoa_dshh_table.getSelectionModel().getSelectedItem();
-        String query = "{call p_modifyPrice(" + _product.getID() + "," + new_price.getText() + ")}";
+        String query = "{call p_modifyPrice(" + _product.getID() + "," + new_price.getText().replaceAll(",", "") + ")}";
         try {
             cStmt = conn.prepareCall(query);
             cStmt.executeQuery();
@@ -386,10 +427,10 @@ public class Controller {
         dongia_dshd_column.setCellValueFactory(new PropertyValueFactory<>("dongia"));
         thanhtien_dshd_column.setCellValueFactory(new PropertyValueFactory<>("thanhtien"));
 
-        CallableStatement cStmt = null;
+        CallableStatement cStmt;
         ResultSet rs = null;
         String query = "{call p_listProducts(" + thanhtoan_mahoadon.getValue() + ")}";
-        Integer cnt = new Integer(1);
+        int cnt = 1;
 
         try {
             cStmt = conn.prepareCall(query);
@@ -417,14 +458,16 @@ public class Controller {
             System.out.println("SQLException: " + e.getMessage());
         }
 
-        Statement stmt = null;
+        Statement stmt;
         query = "select f_sumCart(" + thanhtoan_mahoadon.getValue() + ")" + "as ans";
         try {
             stmt = conn.createStatement();
             if (stmt.execute(query)) {
                 rs = stmt.getResultSet();
             }
-            while (rs.next()) {
+            while (true) {
+                assert rs != null;
+                if (!rs.next()) break;
                 tongtien_text.setText(String.format("%,.2f", rs.getFloat("ans")));
             }
         } catch (SQLException e) {
@@ -456,8 +499,8 @@ public class Controller {
     @FXML
     public void load_mahang() {
 
-        CallableStatement cStmt = null;
-        ResultSet rs = null;
+        CallableStatement cStmt;
+        ResultSet rs;
         String query = "{call p_getIDbyProductName('" + them_ten_mat_hang.getValue() + "')}";
 
 
@@ -481,6 +524,7 @@ public class Controller {
         thanhtoan_mahoadon.getItems().clear();
         tenkhachhang.getItems().clear();
         them_ten_mat_hang.getItems().clear();
+        dataList.clear();
 
         // setup render hoadon_table
         stt_dshd_column.setCellValueFactory(new PropertyValueFactory<>("stt"));
@@ -490,10 +534,10 @@ public class Controller {
         tongtien_column.setCellValueFactory(new PropertyValueFactory<>("tongtien"));
         ghichu_column.setCellValueFactory(new PropertyValueFactory<>("ghichu"));
 
-        CallableStatement cStmt = null;
-        ResultSet rs = null;
+        CallableStatement cStmt;
+        ResultSet rs;
         String query = "{call p_listsomething('Orders')}";
-        Integer cnt = new Integer(1);
+        int cnt = 1;
 
         try {
             cStmt = conn.prepareCall(query);
@@ -550,11 +594,12 @@ public class Controller {
         sdt_dskh_column.setCellValueFactory(new PropertyValueFactory<>("sdt"));
         email_dskh_column.setCellValueFactory(new PropertyValueFactory<>("email"));
         diachi_dskh_column.setCellValueFactory(new PropertyValueFactory<>("diachi"));
+        dataList_dskh.clear();
 
-        CallableStatement cStmt = null;
-        ResultSet rs = null;
+        CallableStatement cStmt;
+        ResultSet rs;
         String query = "{call p_listsomething('Customers')}";
-        Integer cnt = new Integer(1);
+        int cnt = 1;
 
         try {
             cStmt = conn.prepareCall(query);
@@ -579,6 +624,7 @@ public class Controller {
     @FXML
     public void load_hanghoa() {
         hanghoa_dshh_table.getItems().clear();
+
         // setup render hanghoa_table
         stt_dshh_column.setCellValueFactory(new PropertyValueFactory<>("stt"));
         id_dshh_column.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -586,11 +632,12 @@ public class Controller {
         soluong_dshh_column.setCellValueFactory(new PropertyValueFactory<>("soluong"));
         dongia_dshh_column.setCellValueFactory(new PropertyValueFactory<>("dongia"));
         sale_dshh_column.setCellValueFactory(new PropertyValueFactory<>("sale"));
+        dataList_dshh.clear();
 
-        CallableStatement cStmt = null;
-        ResultSet rs = null;
+        CallableStatement cStmt;
+        ResultSet rs;
         String query = "{call p_listsomething('Products')}";
-        Integer cnt = new Integer(1);
+        int cnt = 1;
 
         final char seperatorChar = ',';
         final Pattern p = Pattern.compile("[0-9" + seperatorChar + "]*");
