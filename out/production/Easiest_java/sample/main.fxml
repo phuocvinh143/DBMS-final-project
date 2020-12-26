@@ -17,7 +17,6 @@
             </font>
         </Label>
         <Label layoutX="6.0" layoutY="401.0" prefHeight="17.0" prefWidth="28.0" text="v1.0" />
-        <Label layoutX="55.0" layoutY="401.0" prefHeight="17.0" prefWidth="218.0" text="Mai Phước Vinh          MSSV: B1805835" />
         <Button fx:id="start_btn" layoutX="276.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleBtnClick" prefHeight="101.0" prefWidth="218.0" text="START">
            <font>
                <Font size="24.0" />

@@ -184,65 +184,57 @@ public class Controller {
             System.out.println("SQLException: " + e.getMessage());
         }
 
-        // In hoa don
-        GregorianCalendar gg = new GregorianCalendar();
-        SimpleDateFormat dd = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat ddd = new SimpleDateFormat("HH:mm");
-
-        String Header =
-                          "*************************************  CTY TNHH 1 thành viên  *************************************;" +
-                          "*************************************       TÍNH TIỀN         *************************************;"
-                        + "Ngày: "+dd.format(gg.getTime()) + ";Thời gian: " + ddd.format(gg.getTime()) + "\n\n\n;"
-                        + "                                             HÓA ĐƠN                                               \n;"
-                        + "---------------------------------------------------------------------------------------------------\n;"
-                        + "Tên x Số lượng                                                                               Đơn giá\n;"
-                        + "----------------------------------------------------------------------------------------------------\n;";
-
-        StringBuilder a = new StringBuilder();
-
-        ResultSet rs;
-        query = "{call p_listProducts(" + thanhtoan_mahoadon.getValue() + ")}";
-
-        try {
-            cStmt = conn.prepareCall(query);
-            rs = cStmt.executeQuery();
-            while (rs.next()) {
-                query = "{call p_decrease_product_instock('" + rs.getString("productName") + "'," + rs.getInt("quantity") + ")}";
-                cStmt = conn.prepareCall(query);
-                cStmt.executeQuery();
-
-                String tmp = rs.getString("productName") + " x " + rs.getInt("quantity");
-                String tmp1 = String.format("%,.2f", rs.getFloat("price"));
-                StringBuilder space = new StringBuilder();
-                for (int i = 0; i < 10 - tmp1.length() + (90 - tmp.length()); ++i) space.append(" ");
-                a.append(tmp).append(space).append(tmp1).append("\n;");
-            }
-        } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-        }
-        String amt  =
-                          "\n;----------------------------------------------------------------------------------------------------\n;"
-                        + "                                                             Tổng cộng:              " + tongtien_text.getText() + "\n;"
-                        + "----------------------------------------------------------------------------------------------------\n;"
-                        + "----------------------------------------------------------------------------------------------------\n;"
-                        + "----------------------------------------------------------------------------------------------------\n;"
-                        + "                                        Software Developed by                                       \n;"
-                        + "                                            Vinh  Mai                                               \n;"
-                        + "----------------------------------------------------------------------------------------------------\n;"
-                        + "                                            Thank You                                               \n;"
-                        + "----------------------------------------------------------------------------------------------------\n;";
-
-        String billz = Header + a + amt;
-        PrintReciept.printcard(billz);
-
-        if (Desktop.isDesktopSupported()) {
-            try {
-                File myFile = new File("D:/Study_At_Uni/NLHQTCSDL/Easiest_java/reciepts/5.pdf");
-                Desktop.getDesktop().open(myFile);
-            } catch (IOException ex) {
-                // no application registered for PDFs
-            }
-        }
+//        // In hoa don
+//        GregorianCalendar gg = new GregorianCalendar();
+//        SimpleDateFormat dd = new SimpleDateFormat("dd/MM/yyyy");
+//        SimpleDateFormat ddd = new SimpleDateFormat("HH:mm");
+//
+//        String Header =
+//                          "*************************************  CTY TNHH 1 thành viên  *************************************;" +
+//                          "*************************************       TÍNH TIỀN         *************************************;"
+//                        + "Ngày: "+dd.format(gg.getTime()) + ";Thời gian: " + ddd.format(gg.getTime()) + "\n\n\n;"
+//                        + "                                             HÓA ĐƠN                                               \n;"
+//                        + "---------------------------------------------------------------------------------------------------\n;"
+//                        + "Tên x Số lượng                                                                               Đơn giá\n;"
+//                        + "----------------------------------------------------------------------------------------------------\n;";
+//
+//        StringBuilder a = new StringBuilder();
+//
+//        ResultSet rs;
+//        query = "{call p_listProducts(" + thanhtoan_mahoadon.getValue() + ")}";
+//
+//        try {
+//            cStmt = conn.prepareCall(query);
+//            rs = cStmt.executeQuery();
+//            while (rs.next()) {
+//                query = "{call p_decrease_product_instock('" + rs.getString("productName") + "'," + rs.getInt("quantity") + ")}";
+//                cStmt = conn.prepareCall(query);
+//                cStmt.executeQuery();
+//
+//                String tmp = rs.getString("productName") + " x " + rs.getInt("quantity");
+//                String tmp1 = String.format("%,.2f", rs.getFloat("price"));
+//                StringBuilder space = new StringBuilder();
+//                for (int i = 0; i < 10 - tmp1.length() + (90 - tmp.length()); ++i) space.append(" ");
+//                a.append(tmp).append(space).append(tmp1).append("\n;");
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("SQLException: " + e.getMessage());
+//        }
+//        String amt  =
+//                          "\n;----------------------------------------------------------------------------------------------------\n;"
+//                        + "                                                             Tổng cộng:              " + tongtien_text.getText() + "\n;";
+//
+//        String billz = Header + a + amt;
+//        PrintReciept.printcard(billz);
+//
+//        if (Desktop.isDesktopSupported()) {
+//            try {
+//                File myFile = new File("D:/Study_At_Uni/NLHQTCSDL/Easiest_java/reciepts/5.pdf");
+//                Desktop.getDesktop().open(myFile);
+//            } catch (IOException ex) {
+//                // no application registered for PDFs
+//            }
+//        }
 
         load_hoadon();
     }
